@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
         private UserService service;
-        UserMapper mapper;
+        private UserMapper mapper;
 
         @PostMapping
         public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
                 User user = mapper.userDTOToUserEntity(userDTO);
-                service.createUser(user);
-                return ResponseEntity.status(HttpStatus.CREATED).body(user);
+                UserDTO tmp = mapper.userEntityToUserDTO(service.createUser(user));
+                return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
         }
 
         @GetMapping("/{id}")

@@ -16,18 +16,6 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     PersonaRepository personaRepository;
 
-
-    @Override
-    public User getUser(Integer id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()) {
-            return optionalUser.get();
-        }
-        else {
-            throw new RuntimeException("Usuario con id " + id + " no existe");
-        }
-    }
-
     @Override
     public User createUser(User user) {
         if (emailExist(user.getMail())) {
@@ -40,8 +28,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean emailExist(String email) {
-        return userRepository.findByMail(email).isPresent();
+    public User getUser(Integer id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        else {
+            throw new RuntimeException("Usuario con id " + id + " no existe");
+        }
     }
 
     @Override
@@ -81,6 +75,11 @@ public class UserServiceImpl implements UserService {
         else {
             throw new RuntimeException("Usuario con id " + id + " no existe");
         }
+    }
+
+    @Override
+    public boolean emailExist(String email) {
+        return userRepository.findByMail(email).isPresent();
     }
 
 }
