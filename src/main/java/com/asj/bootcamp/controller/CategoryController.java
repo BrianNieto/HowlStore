@@ -1,18 +1,20 @@
 package com.asj.bootcamp.controller;
 
 import com.asj.bootcamp.dto.CategoryDTO;
-import com.asj.bootcamp.dto.ItemDTO;
 import com.asj.bootcamp.entity.Category;
-import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.CategoryMapper;
 import com.asj.bootcamp.service.CategoryService;
+import com.asj.bootcamp.service.impl.CategoryServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/categorias")
 @AllArgsConstructor
@@ -23,7 +25,8 @@ public class CategoryController {
 
     private CategoryMapper mapper;
 
-    @PostMapping
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO){
         Category category = mapper.categoryDTOToCategoryEntity(categoryDTO);
         CategoryDTO tmp = mapper.categoryEntityToCategoryDTO(service.createCategory(category));
@@ -63,4 +66,5 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria no encontrada");
         }
     }
+
 }

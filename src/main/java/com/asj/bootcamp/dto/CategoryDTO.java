@@ -11,4 +11,5 @@ public class CategoryDTO {
 
     Integer idCategoria;
     String nombreCategoria;
+
 }
