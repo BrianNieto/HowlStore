@@ -12,4 +12,7 @@ public interface ItemService {
     Item updateItem(Integer id, Item tmp);
 
     void deleteItem(Integer id);
+
+    boolean itemExist(String nombreItem, String estadoItem);
+
 }

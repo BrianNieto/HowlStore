@@ -24,6 +24,6 @@ public class Item {
     String estadoItem;
     @ManyToOne
     @JoinColumn(name = "idCategoria")
-    Categoria categoria;
+    Category category;
 
 }

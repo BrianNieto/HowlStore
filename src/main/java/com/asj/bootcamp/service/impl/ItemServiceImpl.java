@@ -46,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
         itempUpdated.setPrecioItem(tmp.getPrecioItem());
         itempUpdated.setEstadoItem(tmp.getEstadoItem());
         itempUpdated.setStockItem(tmp.getStockItem());
-        itempUpdated.setCategoria(tmp.getCategoria());
+        itempUpdated.setCategory(tmp.getCategory());
 
         return repository.save(itempUpdated);
     }
@@ -61,8 +61,8 @@ public class ItemServiceImpl implements ItemService {
             throw new RuntimeException("Usuario con id " + id + " no existe");
         }
     }
-
-    private boolean itemExist(String nombreItem, String estadoItem) {
+    @Override
+    public boolean itemExist(String nombreItem, String estadoItem) {
         return repository.findByNombreItemAndEstadoItem(nombreItem, estadoItem).isPresent();
     }
 

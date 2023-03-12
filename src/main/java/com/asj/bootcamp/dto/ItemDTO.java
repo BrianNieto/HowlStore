@@ -1,6 +1,6 @@
 package com.asj.bootcamp.dto;
 
-import com.asj.bootcamp.entity.Categoria;
+import com.asj.bootcamp.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +15,6 @@ public class ItemDTO {
     Integer precioItem;
     Integer stockItem;
     String estadoItem;
-    Categoria categoria;
+    Category category;
 
 }
