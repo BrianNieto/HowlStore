@@ -13,8 +13,13 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
-    PersonaRepository personaRepository;
+    private final UserRepository userRepository;
+    private final PersonaRepository personaRepository;
+
+    public UserServiceImpl(UserRepository userRepository, PersonaRepository personaRepository) {
+        this.userRepository = userRepository;
+        this.personaRepository = personaRepository;
+    }
 
     @Override
     public User createUser(User user) {

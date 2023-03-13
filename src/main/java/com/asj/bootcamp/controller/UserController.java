@@ -5,8 +5,6 @@ import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.UserMapper;
 import com.asj.bootcamp.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +12,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserController {
 
-        private UserService service;
-        private UserMapper mapper;
+        private final UserService service;
+        private final UserMapper mapper;
+
+        public UserController(UserService service, UserMapper mapper) {
+                this.service = service;
+                this.mapper = mapper;
+        }
 
         @PostMapping
         public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){

@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
             throw new RuntimeException(String.format("Item con ese nombre y estado ya registrado"));
         }
         if (!tmp.isPresent()) {
-            throw new RuntimeException(String.format("Categoria con ID: " + item.getCategory().getIdCategoria() + "no registrado"));
+            throw new RuntimeException(String.format("Categoria con ID: " + item.getCategory().getIdCategoria() + " no registrado"));
         }
 
         return itemRepository.save(item);
