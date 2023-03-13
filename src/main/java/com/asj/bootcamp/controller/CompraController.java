@@ -1,8 +1,6 @@
 package com.asj.bootcamp.controller;
 
-import com.asj.bootcamp.dto.CategoryDTO;
 import com.asj.bootcamp.dto.CompraDTO;
-import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.entity.Compra;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.CompraMapper;
@@ -10,7 +8,6 @@ import com.asj.bootcamp.service.CompraService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

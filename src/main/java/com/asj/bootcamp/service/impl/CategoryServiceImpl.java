@@ -11,7 +11,11 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    CategoryRepository repository;
+    private final CategoryRepository repository;
+
+    public CategoryServiceImpl(CategoryRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Category createCategory(Category category) {

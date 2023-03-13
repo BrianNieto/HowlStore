@@ -5,20 +5,22 @@ import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.ItemMapper;
 import com.asj.bootcamp.service.ItemService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/items")
-@AllArgsConstructor
-@NoArgsConstructor
 public class ItemController {
 
-    private ItemService service;
-    private ItemMapper mapper;
+    private final ItemService service;
+    private final ItemMapper mapper;
+
+    public ItemController(ItemService service, ItemMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @PostMapping
     public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO){

@@ -1,6 +1,5 @@
 package com.asj.bootcamp.service.impl;
 
-import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.entity.Compra;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.repository.CompraRepository;
@@ -55,5 +54,5 @@ public class CompraServiceImpl implements CompraService {
             throw new RuntimeException("Compra con id " + id + " no existe");
         }
     }
-    
+
 }

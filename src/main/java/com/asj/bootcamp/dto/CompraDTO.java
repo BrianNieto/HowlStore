@@ -3,13 +3,14 @@ package com.asj.bootcamp.dto;
 import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.entity.User;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class CompraDTO {
 
     Integer idCompra;
     String comentario;
-    Date fecha;
+    LocalDate fecha;
     String estadoPedido;
     Item item;
     User user;

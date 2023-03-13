@@ -5,10 +5,6 @@ import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.CategoryMapper;
 import com.asj.bootcamp.service.CategoryService;
-import com.asj.bootcamp.service.impl.CategoryServiceImpl;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +13,19 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/categorias")
-@AllArgsConstructor
-@NoArgsConstructor
 public class CategoryController {
 
-    private CategoryService service;
+    private final CategoryService service;
 
-    private CategoryMapper mapper;
+    private final CategoryMapper mapper;
+
+    public CategoryController(CategoryService service, CategoryMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO){
         Category category = mapper.categoryDTOToCategoryEntity(categoryDTO);
         CategoryDTO tmp = mapper.categoryEntityToCategoryDTO(service.createCategory(category));

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -22,15 +22,15 @@ public class Compra {
     @Column(nullable = false)
     String comentario;
     @Column(nullable = false)
-    Date fecha;
+    LocalDate fecha;
     @Column(nullable = false)
     String estadoPedido;
 
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "idItem")
     Item item;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUser")
     User user;
-
+*/
 }

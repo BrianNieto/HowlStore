@@ -23,7 +23,7 @@ public class Item {
     @Column(nullable = false)
     String estadoItem;
     @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "id_categoria")
     Category category;
 
 }
