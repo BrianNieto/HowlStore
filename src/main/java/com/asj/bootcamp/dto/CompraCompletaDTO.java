@@ -1,20 +1,22 @@
 package com.asj.bootcamp.dto;
 
+import com.asj.bootcamp.entity.Item;
+import com.asj.bootcamp.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class CompraDTO {
-
+public class CompraCompletaDTO {
+    Integer idCompra;
     String comentario;
+    LocalDate fecha;
     String estadoPedido;
-    Integer idItem;
-    Integer idUser;
+    Item item;
+    User user;
 
 }

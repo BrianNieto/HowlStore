@@ -49,9 +49,6 @@ public class UserServiceImpl implements UserService {
         Persona personaUpdated;
 
         Optional<User> optionalUser = userRepository.findById(id);
-        Optional<Persona> optionalPersona = personaRepository.findById(user.getPersona().getIdPersona());
-
-        personaUpdated = optionalPersona.get();
         if (optionalUser.isPresent()) {
             userUpdated = optionalUser.get();
         }
@@ -59,13 +56,15 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Usuario con id " + id + " no existe");
         }
 
+        Optional<Persona> optionalPersona = personaRepository.findById(userUpdated.getPersona().getIdPersona());
+
+        personaUpdated = optionalPersona.get();
         personaUpdated.setFirstname(user.getPersona().getFirstname());
         personaUpdated.setLastname(user.getPersona().getLastname());
 
         personaRepository.save(personaUpdated);
 
         userUpdated.setPersona(personaUpdated);
-        userUpdated.setMail(user.getMail());
         userUpdated.setPassword(user.getPassword());
 
         return userRepository.save(userUpdated);

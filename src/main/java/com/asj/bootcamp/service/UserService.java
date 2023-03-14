@@ -1,5 +1,6 @@
 package com.asj.bootcamp.service;
 
+import com.asj.bootcamp.entity.Persona;
 import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 

@@ -25,12 +25,15 @@ public class Compra {
     LocalDate fecha;
     @Column(nullable = false)
     String estadoPedido;
-
-    /*@OneToMany
+    @ManyToOne
     @JoinColumn(name = "idItem")
     Item item;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idUser")
     User user;
-*/
+
+    @PrePersist
+    public void prePersist(){
+        this.fecha = LocalDate.now();
+    }
 }

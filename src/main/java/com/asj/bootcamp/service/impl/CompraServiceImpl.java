@@ -1,24 +1,31 @@
 package com.asj.bootcamp.service.impl;
 
+
 import com.asj.bootcamp.entity.Compra;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.repository.CompraRepository;
 import com.asj.bootcamp.service.CompraService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CompraServiceImpl implements CompraService {
 
-    CompraRepository repository;
+    private final CompraRepository compraRepository;
+
+    public CompraServiceImpl(CompraRepository compraRepository) {
+        this.compraRepository = compraRepository;
+    }
 
     @Override
     public Compra createCompra(Compra compra) {
-        return repository.save(compra);
+        return compraRepository.save(compra);
     }
 
     @Override
     public Compra getCompra(Integer id) throws NotFoundException {
-        Optional<Compra> optionalCompra = repository.findById(id);
+        Optional<Compra> optionalCompra = compraRepository.findById(id);
         if (optionalCompra.isPresent()) {
             return optionalCompra.get();
         }
@@ -31,7 +38,7 @@ public class CompraServiceImpl implements CompraService {
     @Override
     public Compra updateCompra(Integer id, Compra tmp) {
         Compra compraUpdated;
-        Optional<Compra> optionalCompra = repository.findById(id);
+        Optional<Compra> optionalCompra = compraRepository.findById(id);
         if (optionalCompra.isPresent()){
             compraUpdated = optionalCompra.get();
         }
@@ -41,14 +48,14 @@ public class CompraServiceImpl implements CompraService {
         compraUpdated.setComentario(tmp.getComentario());
         compraUpdated.setEstadoPedido(tmp.getEstadoPedido());
 
-        return repository.save(compraUpdated);
+        return compraRepository.save(compraUpdated);
     }
 
     @Override
     public void deleteCompra(Integer id) {
-        Optional<Compra> optionalCompra = repository.findById(id);
+        Optional<Compra> optionalCompra = compraRepository.findById(id);
         if (optionalCompra.isPresent()) {
-            repository.deleteById(id);
+            compraRepository.deleteById(id);
         }
         else {
             throw new RuntimeException("Compra con id " + id + " no existe");

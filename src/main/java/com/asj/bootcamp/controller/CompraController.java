@@ -1,37 +1,57 @@
 package com.asj.bootcamp.controller;
 
+import com.asj.bootcamp.dto.CompraCompletaDTO;
 import com.asj.bootcamp.dto.CompraDTO;
 import com.asj.bootcamp.entity.Compra;
+import com.asj.bootcamp.entity.Item;
+import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.CompraMapper;
 import com.asj.bootcamp.service.CompraService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.asj.bootcamp.service.ItemService;
+import com.asj.bootcamp.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/compras")
-@AllArgsConstructor
-@NoArgsConstructor
 public class CompraController {
 
-    private CompraService service;
-    private CompraMapper mapper;
+    private final CompraService service;
+    private final UserService userService;
+    private final ItemService itemService;
+    private final CompraMapper mapper;
+
+    public CompraController(CompraService service, UserService userService, ItemService itemService, CompraMapper mapper) {
+        this.service = service;
+        this.userService = userService;
+        this.itemService = itemService;
+        this.mapper = mapper;
+    }
 
 
-    public ResponseEntity<?> createCompra(@RequestBody CompraDTO compraDTO){
+    @PostMapping
+    public ResponseEntity<?> createCompra(@RequestBody CompraDTO compraDTO) throws NotFoundException {
+        User user = userService.getUser(compraDTO.getIdUser());
+        Item item = itemService.getItem(compraDTO.getIdItem());
+
         Compra compra = mapper.compraDTOToEntity(compraDTO);
-        CompraDTO tmp = mapper.compraEntityToCompraDTO(service.createCompra(compra));
-        return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+        compra.setUser(user);
+        compra.setItem(item);
+
+        CompraCompletaDTO compraCompletaDTO = mapper.compraEntityToCompraCompletaDTO(service.createCompra(compra));
+        return ResponseEntity.status(HttpStatus.CREATED).body(compraCompletaDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCategory(@PathVariable Integer id){
+    public ResponseEntity<?> getCompra(@PathVariable Integer id){
         try {
             Compra compra =  service.getCompra(id);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.compraEntityToCompraDTO(compra));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.compraEntityToCompraCompletaDTO(compra));
         }
         catch (NotFoundException ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no encontrada");
@@ -39,10 +59,10 @@ public class CompraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable Integer id, @RequestBody CompraDTO compraDTO){
+    public ResponseEntity<?> updateCompra(@PathVariable Integer id, @RequestBody CompraDTO compraDTO){
         try {
             Compra tmp = mapper.compraDTOToEntity(compraDTO);
-            CompraDTO updated = mapper.compraEntityToCompraDTO(service.updateCompra(id, tmp));
+            CompraCompletaDTO updated = mapper.compraEntityToCompraCompletaDTO(service.updateCompra(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
         catch (RuntimeException ex){
@@ -51,7 +71,7 @@ public class CompraController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Integer id){
+    public ResponseEntity<?> deleteCompra(@PathVariable Integer id){
         try {
             service.deleteCompra(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();

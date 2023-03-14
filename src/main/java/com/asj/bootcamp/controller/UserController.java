@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
         private final UserService service;
-        private final UserMapper mapper;
+        private final UserMapper userMapper;
 
-        public UserController(UserService service, UserMapper mapper) {
+        public UserController(UserService service, UserMapper userMapper) {
                 this.service = service;
-                this.mapper = mapper;
+                this.userMapper = userMapper;
         }
 
         @PostMapping
         public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
-                User user = mapper.userDTOToUserEntity(userDTO);
-                UserDTO tmp = mapper.userEntityToUserDTO(service.createUser(user));
+                User user = userMapper.userDTOToUserEntity(userDTO);
+                UserDTO tmp = userMapper.userEntityToUserDTO(service.createUser(user));
                 return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
         }
 
@@ -33,7 +33,7 @@ public class UserController {
         public ResponseEntity<?> getUser(@PathVariable Integer id){
                 try {
                         User user =  service.getUser(id);
-                        return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.userEntityToUserDTO(user));
+                        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userMapper.userEntityToUserDTO(user));
                 }
                 catch (NotFoundException ex){
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
@@ -43,8 +43,8 @@ public class UserController {
         @PutMapping("/{id}")
         public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO){
                 try {
-                        User tmp = mapper.userDTOToUserEntity(userDTO);
-                        User updated = service.updateUser(id, tmp);
+                        User userTmp = userMapper.userDTOToUserEntity(userDTO);
+                        User updated = service.updateUser(id, userTmp);
                         return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
                 }
                 catch (RuntimeException ex){
