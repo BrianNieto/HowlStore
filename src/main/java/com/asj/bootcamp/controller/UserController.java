@@ -1,6 +1,8 @@
 package com.asj.bootcamp.controller;
 
 import com.asj.bootcamp.dto.UserDTO;
+import com.asj.bootcamp.dto.UserLoginDTO;
+import com.asj.bootcamp.dto.UserToRegisterDTO;
 import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.UserMapper;
@@ -23,9 +25,13 @@ public class UserController {
         }
 
         @PostMapping
-        public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
-                User user = userMapper.userDTOToUserEntity(userDTO);
-                UserDTO tmp = userMapper.userEntityToUserDTO(service.createUser(user));
+        public ResponseEntity<?> createUser(@RequestBody UserToRegisterDTO userToRegisterDTO){
+                User user = userMapper.userToRegisterDTOToUserCompletoDTO(userToRegisterDTO);
+
+                User updated = service.createUser(user);
+                UserDTO tmp = userMapper.userEntityToUserDTO(updated);
+                tmp.setIdPersona(updated.getPersona().getIdPersona());
+
                 return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
         }
 
@@ -33,7 +39,7 @@ public class UserController {
         public ResponseEntity<?> getUser(@PathVariable Integer id){
                 try {
                         User user =  service.getUser(id);
-                        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userMapper.userEntityToUserDTO(user));
+                        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userMapper.userEntityToUserCompletoDTO(user));
                 }
                 catch (NotFoundException ex){
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
@@ -63,4 +69,14 @@ public class UserController {
                 }
         }
 
+        @PostMapping("/login")
+        public ResponseEntity<?> validateUser(@RequestBody UserLoginDTO userLoginDTO){
+                try {
+                        service.validateUser(userMapper.userLoginDTOToUserEntity(userLoginDTO));
+                        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+                }
+                catch (RuntimeException ex){
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Datos mal ingresados");
+                }
+        }
 }

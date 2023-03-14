@@ -7,6 +7,7 @@ import com.asj.bootcamp.repository.ItemRepository;
 import com.asj.bootcamp.service.ItemService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,4 +81,8 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findByNombreItemAndEstadoItem(nombreItem, estadoItem).isPresent();
     }
 
+    @Override
+    public List<Item> getAll(){
+        return itemRepository.findAll();
+    }
 }

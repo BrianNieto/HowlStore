@@ -1,13 +1,19 @@
 package com.asj.bootcamp.controller;
 
+import com.asj.bootcamp.dto.ItemCompletoDTO;
 import com.asj.bootcamp.dto.ItemDTO;
 import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.ItemMapper;
+import com.asj.bootcamp.repository.CategoryRepository;
+import com.asj.bootcamp.service.CategoryService;
 import com.asj.bootcamp.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -16,16 +22,21 @@ public class ItemController {
 
     private final ItemService service;
     private final ItemMapper mapper;
+    private final CategoryService categoryService;
 
-    public ItemController(ItemService service, ItemMapper mapper) {
+    public ItemController(ItemService service, ItemMapper mapper, CategoryService categoryService) {
         this.service = service;
         this.mapper = mapper;
+        this.categoryService = categoryService;
     }
 
     @PostMapping
-    public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO){
+    public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) throws NotFoundException {
         Item item = mapper.itemDTOToItemEntity(itemDTO);
-        ItemDTO tmp = mapper.itemEntityToItemDTO(service.createItem(item));
+        item.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
+
+        ItemCompletoDTO tmp = mapper.itemEntityToItemDTO(service.createItem(item));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
     }
 
@@ -41,10 +52,10 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO){
+    public ResponseEntity<?> updateItem(@PathVariable Integer id, @RequestBody ItemCompletoDTO itemCompletoDTO){
         try {
-            Item tmp = mapper.itemDTOToItemEntity(itemDTO);
-            ItemDTO updated = mapper.itemEntityToItemDTO(service.updateItem(id, tmp));
+            Item tmp = mapper.itemCompletoDTOToItemEntity(itemCompletoDTO);
+            ItemCompletoDTO updated = mapper.itemEntityToItemDTO(service.updateItem(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
         catch (RuntimeException ex){
@@ -63,4 +74,14 @@ public class ItemController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllItems(){
+        List<Item> items = service.getAll();
+        List<ItemCompletoDTO> itemCompletoDTOS = new ArrayList<>();
+        for (Item item : items){
+            itemCompletoDTOS.add(mapper.itemEntityToItemDTO(item));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(itemCompletoDTOS);
+    }
 }
