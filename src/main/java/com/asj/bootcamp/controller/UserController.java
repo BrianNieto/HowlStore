@@ -26,13 +26,13 @@ public class UserController {
 
         @PostMapping
         public ResponseEntity<?> createUser(@RequestBody UserToRegisterDTO userToRegisterDTO){
-                User user = userMapper.userToRegisterDTOToUserCompletoDTO(userToRegisterDTO);
+                        User user = userMapper.userToRegisterDTOToUserCompletoDTO(userToRegisterDTO);
 
-                User updated = service.createUser(user);
-                UserDTO tmp = userMapper.userEntityToUserDTO(updated);
-                tmp.setIdPersona(updated.getPersona().getIdPersona());
+                        User updated = service.createUser(user);
+                        UserDTO tmp = userMapper.userEntityToUserDTO(updated);
+                        tmp.setIdPersona(updated.getPersona().getIdPersona());
 
-                return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+                        return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
         }
 
         @GetMapping("/{id}")
@@ -73,7 +73,7 @@ public class UserController {
         public ResponseEntity<?> validateUser(@RequestBody UserLoginDTO userLoginDTO){
                 try {
                         service.validateUser(userMapper.userLoginDTOToUserEntity(userLoginDTO));
-                        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+                        return ResponseEntity.ok(true);
                 }
                 catch (RuntimeException ex){
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Datos mal ingresados");

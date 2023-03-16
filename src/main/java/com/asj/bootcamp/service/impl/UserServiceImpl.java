@@ -82,11 +82,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void validateUser(User user) {
-        Optional<User> optionalUser = userRepository.findByMailAndPassword(user.getMail(), user.getPassword());
-        if (!optionalUser.isPresent()){
-                throw new RuntimeException("Mail o password incorrectos");
-        }
+    public boolean validateUser(User user) {
+        return userRepository.findByMailAndPassword(user.getMail(), user.getPassword()).isPresent();
     }
 
     @Override

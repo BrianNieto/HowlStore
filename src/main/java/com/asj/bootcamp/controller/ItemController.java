@@ -5,9 +5,9 @@ import com.asj.bootcamp.dto.ItemDTO;
 import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.ItemMapper;
-import com.asj.bootcamp.repository.CategoryRepository;
 import com.asj.bootcamp.service.CategoryService;
 import com.asj.bootcamp.service.ItemService;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,13 +52,15 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateItem(@PathVariable Integer id, @RequestBody ItemCompletoDTO itemCompletoDTO){
+    public ResponseEntity<?> updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO){
         try {
-            Item tmp = mapper.itemCompletoDTOToItemEntity(itemCompletoDTO);
+            Item tmp = mapper.itemDTOToItemEntity(itemDTO);
+
+            tmp.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
             ItemCompletoDTO updated = mapper.itemEntityToItemDTO(service.updateItem(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
-        catch (RuntimeException ex){
+        catch (NotFoundException ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item no encontrado");
         }
     }
@@ -84,4 +86,5 @@ public class ItemController {
 
         return ResponseEntity.status(HttpStatus.OK).body(itemCompletoDTOS);
     }
+
 }
