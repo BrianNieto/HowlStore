@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -72,8 +73,8 @@ public class UserController {
         @PostMapping("/login")
         public ResponseEntity<?> validateUser(@RequestBody UserLoginDTO userLoginDTO){
                 try {
-                        service.validateUser(userMapper.userLoginDTOToUserEntity(userLoginDTO));
-                        return ResponseEntity.ok(true);
+                        User userValidated = service.validateUser(userMapper.userLoginDTOToUserEntity(userLoginDTO));
+                        return ResponseEntity.ok(userValidated.getIdUser());
                 }
                 catch (RuntimeException ex){
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Datos mal ingresados");
