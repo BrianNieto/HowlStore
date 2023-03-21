@@ -7,6 +7,7 @@ import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.UserMapper;
 import com.asj.bootcamp.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/users")
+@Api(value = "Allowed actios for the User Entity", tags = "User Controller")
 public class UserController {
 
         private final UserService service;
