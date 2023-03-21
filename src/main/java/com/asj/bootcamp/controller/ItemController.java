@@ -60,7 +60,7 @@ public class ItemController {
             ItemCompletoDTO updated = mapper.itemEntityToItemDTO(service.updateItem(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
-        catch (NotFoundException ex){
+        catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item no encontrado");
         }
     }

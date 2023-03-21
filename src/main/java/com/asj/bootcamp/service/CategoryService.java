@@ -7,7 +7,7 @@ public interface CategoryService {
 
     Category createCategory(Category category);
 
-    Category getCategory(Integer id) throws NotFoundException;
+    Category getCategory(Integer id);
 
     Category updateCategory(Integer id, Category tmp);
 

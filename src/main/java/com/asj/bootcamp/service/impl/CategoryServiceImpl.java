@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategory(Integer id) throws NotFoundException {
+    public Category getCategory(Integer id){
         Optional<Category> optionalCategory = repository.findById(id);
         if (optionalCategory.isPresent()) {
             return optionalCategory.get();

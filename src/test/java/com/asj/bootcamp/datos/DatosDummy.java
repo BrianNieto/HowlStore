@@ -8,5 +8,8 @@ public class DatosDummy {
     public static Category getCategorySMG(){
         return new Category(1,"SMG");
     }
+    public static Category getCategoryRifles(){
+        return new Category(2,"Rifles");
+    }
 
 }

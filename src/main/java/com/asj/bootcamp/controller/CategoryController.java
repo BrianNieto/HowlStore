@@ -37,7 +37,7 @@ public class CategoryController {
             Category category =  service.getCategory(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.categoryEntityToCategoryDTO(category));
         }
-        catch (NotFoundException ex){
+        catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria no encontrada");
         }
     }
