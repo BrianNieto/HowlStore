@@ -2,7 +2,7 @@ package com.asj.bootcamp.controller;
 
 import com.asj.bootcamp.dto.UserDTO;
 import com.asj.bootcamp.dto.UserLoginDTO;
-import com.asj.bootcamp.dto.UserToRegisterDTO;
+import com.asj.bootcamp.dto.UserWithoutIdDTO;
 import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.UserMapper;
@@ -28,8 +28,8 @@ public class UserController {
         }
 
         @PostMapping
-        public ResponseEntity<?> createUser(@RequestBody UserToRegisterDTO userToRegisterDTO){
-                        User user = userMapper.userToRegisterDTOToUserCompletoDTO(userToRegisterDTO);
+        public ResponseEntity<?> createUser(@RequestBody UserWithoutIdDTO userWithoutIdDTO){
+                        User user = userMapper.userToRegisterDTOToUserCompletoDTO(userWithoutIdDTO);
 
                         User updated = service.createUser(user);
                         UserDTO tmp = userMapper.userEntityToUserDTO(updated);
@@ -50,7 +50,7 @@ public class UserController {
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO){
+        public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UserWithoutIdDTO userDTO){
                 try {
                         User userTmp = userMapper.userDTOToUserEntity(userDTO);
                         User updated = service.updateUser(id, userTmp);

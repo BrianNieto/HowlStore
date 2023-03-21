@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserToRegisterDTO {
+public class UserWithoutIdDTO {
     String mail;
     String password;
     Persona persona;

@@ -3,7 +3,7 @@ package com.asj.bootcamp.mapper;
 import com.asj.bootcamp.dto.UserCompletoDTO;
 import com.asj.bootcamp.dto.UserDTO;
 import com.asj.bootcamp.dto.UserLoginDTO;
-import com.asj.bootcamp.dto.UserToRegisterDTO;
+import com.asj.bootcamp.dto.UserWithoutIdDTO;
 import com.asj.bootcamp.entity.User;
 import org.mapstruct.Mapper;
 
@@ -14,9 +14,9 @@ public interface UserMapper {
 
     UserCompletoDTO userEntityToUserCompletoDTO(User user);
 
-    User userToRegisterDTOToUserCompletoDTO(UserToRegisterDTO userToRegisterDTO);
+    User userToRegisterDTOToUserCompletoDTO(UserWithoutIdDTO userWithoutIdDTO);
 
-    User userDTOToUserEntity(UserDTO userDTO);
+    User userDTOToUserEntity(UserWithoutIdDTO userDTO);
 
     User userLoginDTOToUserEntity(UserLoginDTO userLoginDTO);
 
