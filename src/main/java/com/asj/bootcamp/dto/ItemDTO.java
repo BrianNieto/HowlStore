@@ -12,6 +12,8 @@ public class ItemDTO {
     Integer precioItem;
     Integer stockItem;
     String estadoItem;
-    String srcItem;
+    String img1;
+    String img2;
+    String img3;
     Integer idCategory;
 }

@@ -24,7 +24,11 @@ public class Item {
     String estadoItem;
 
     @Column(nullable = false)
-    String srcItem;
+    String img1;
+    @Column(nullable = false)
+    String img2;
+    @Column(nullable = false)
+    String img3;
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_categoria")
     Category category;

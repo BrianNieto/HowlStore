@@ -15,7 +15,9 @@ public class ItemCompletoDTO {
     Integer precioItem;
     Integer stockItem;
     String estadoItem;
-    String srcItem;
+    String img1;
+    String img2;
+    String img3;
     Category category;
 
 }
