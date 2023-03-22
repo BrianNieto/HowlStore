@@ -8,7 +8,7 @@ public interface CompraService {
 
     Compra createCompra(Compra compra);
 
-    Compra getCompra(Integer id) throws NotFoundException;
+    Compra getCompra(Integer id);
 
     Compra updateCompra(Integer id, Compra tmp);
 

@@ -24,7 +24,7 @@ public class CompraServiceImpl implements CompraService {
     }
 
     @Override
-    public Compra getCompra(Integer id) throws NotFoundException {
+    public Compra getCompra(Integer id){
         Optional<Compra> optionalCompra = compraRepository.findById(id);
         if (optionalCompra.isPresent()) {
             return optionalCompra.get();

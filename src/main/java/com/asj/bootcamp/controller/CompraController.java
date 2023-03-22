@@ -50,7 +50,7 @@ public class CompraController {
             Compra compra =  service.getCompra(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.compraEntityToCompraCompletaDTO(compra));
         }
-        catch (NotFoundException ex){
+        catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no encontrada");
         }
     }

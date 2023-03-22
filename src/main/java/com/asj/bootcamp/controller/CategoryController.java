@@ -26,9 +26,14 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO){
-        Category category = mapper.categoryDTOToCategoryEntity(categoryDTO);
-        CategoryDTO tmp = mapper.categoryEntityToCategoryDTO(service.createCategory(category));
-        return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+        try{
+            Category category = mapper.categoryDTOToCategoryEntity(categoryDTO);
+            CategoryDTO tmp = mapper.categoryEntityToCategoryDTO(service.createCategory(category));
+            return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ya existe una categoria con ese nombre");
+        }
     }
 
     @GetMapping("/{id}")
