@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `store`.`items` (
   `precio_item` INT NOT NULL,
   `stock_item` INT NOT NULL,
   `estado_item` VARCHAR(30) NOT NULL,
+  `src_item` VARCHAR(120) NOT NULL,
   `id_categoria` INT NOT NULL,
   PRIMARY KEY (`id_item`, `id_categoria`),
   INDEX `fk_items_categorias1_idx` (`id_categoria` ASC),

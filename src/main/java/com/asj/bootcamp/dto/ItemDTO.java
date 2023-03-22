@@ -12,5 +12,6 @@ public class ItemDTO {
     Integer precioItem;
     Integer stockItem;
     String estadoItem;
+    String srcItem;
     Integer idCategory;
 }

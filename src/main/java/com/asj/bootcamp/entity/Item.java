@@ -22,6 +22,9 @@ public class Item {
     Integer stockItem;
     @Column(nullable = false)
     String estadoItem;
+
+    @Column(nullable = false)
+    String srcItem;
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_categoria")
     Category category;
