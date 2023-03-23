@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -127,6 +129,20 @@ class CategoryServiceImplTest {
         given(repository.findById(idCategory)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.deleteCategory(idCategory)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    @DisplayName("Get all categories")
+    void getAllCAtegories(){
+        List<Category> categories = new ArrayList<>();
+        categories.add(DatosDummy.getCategorySMG());
+        categories.add(DatosDummy.getCategoryRifles());
+
+        given(repository.findAll()).willReturn(categories);
+        List<Category> categoryList = service.getAll();
+
+        verify(repository,times(1)).findAll();
+        assertThat(categoryList.size()).isEqualTo(2);
     }
 
 }
