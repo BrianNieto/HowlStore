@@ -7,7 +7,6 @@ import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.ItemMapper;
 import com.asj.bootcamp.service.CategoryService;
 import com.asj.bootcamp.service.ItemService;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

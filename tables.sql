@@ -33,10 +33,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `store`.`recomendaciones` (
   `id_recomendacion` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(30) NOT NULL,
-  `comentario` VARCHAR(200) NOT NULL,
+  `nombre_recomendacion` VARCHAR(30) NOT NULL,
+  `comentario_recomendacion` VARCHAR(200) NOT NULL,
   `fecha_recomendacion` DATE NOT NULL,
-  `img` VARCHAR(200) NOT NULL,
+  `img_recomendacion` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_recomendacion`))
 ENGINE = InnoDB;
 

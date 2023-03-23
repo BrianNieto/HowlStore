@@ -42,8 +42,8 @@ public class RecomendacionServiceImpl implements RecomendacionService {
         else {
             throw new RuntimeException("Recomendacion con id " + id + " no existe");
         }
-        recomendacionUpdated.setComentario(tmp.getComentario());
-        recomendacionUpdated.setImg(tmp.getImg());
+        recomendacionUpdated.setComentarioRecomendacion(tmp.getComentarioRecomendacion());
+        recomendacionUpdated.setImgRecomendacion(tmp.getImgRecomendacion());
 
         return repository.save(recomendacionUpdated);
     }

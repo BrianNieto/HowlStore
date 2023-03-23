@@ -22,7 +22,7 @@ public class RecomendacionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createRecomedacion(RecomendacionDTO recomendacionDTO){
+    public ResponseEntity<?> createRecomedacion(@RequestBody RecomendacionDTO recomendacionDTO){
         Recomendacion recomendacion = mapper.recomendacionDTOToRecomendacionEntity(recomendacionDTO);
         service.createRecomendacion(recomendacion);
         return ResponseEntity.status(HttpStatus.CREATED).build();

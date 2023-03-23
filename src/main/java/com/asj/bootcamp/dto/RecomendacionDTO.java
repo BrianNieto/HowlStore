@@ -11,8 +11,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class RecomendacionDTO {
     Integer idRecomendacion;
-    String nombre;
-    String comentario;
+    String nombreRecomendacion;
+    String comentarioRecomendacion;
     LocalDate fechaRecomendacion;
-    String img;
+    String imgRecomendacion;
+
 }

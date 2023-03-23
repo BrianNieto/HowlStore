@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/categorias")
@@ -68,6 +71,17 @@ public class CategoryController {
         catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria no encontrada");
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllCategory(){
+        List<Category> categories = service.getAll();
+        List<CategoryDTO> categoryDTOS = new ArrayList<>();
+        for (Category category : categories){
+            categoryDTOS.add(mapper.categoryEntityToCategoryDTO(category));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(categoryDTOS);
     }
 
 }

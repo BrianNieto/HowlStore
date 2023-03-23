@@ -7,22 +7,22 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "recomendaciones")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "recomendaciones")
 public class Recomendacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer idRecomendacion;
     @Column(nullable = false)
-    String nombre;
+    String nombreRecomendacion;
     @Column(nullable = false)
-    String comentario;
+    String comentarioRecomendacion;
     @Column(nullable = false)
     LocalDate fechaRecomendacion;
     @Column(nullable = false)
-    String img;
+    String imgRecomendacion;
 
 }

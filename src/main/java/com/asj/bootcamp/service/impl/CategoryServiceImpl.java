@@ -6,6 +6,7 @@ import com.asj.bootcamp.repository.CategoryRepository;
 import com.asj.bootcamp.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,6 +66,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean existCategory(String nombreCategory) {
         return repository.findByNombreCategoria(nombreCategory).isPresent();
+    }
+
+    @Override
+    public List<Category> getAll() {
+        return repository.findAll();
     }
 
 }
