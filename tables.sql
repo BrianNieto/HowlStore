@@ -42,6 +42,20 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `store`.`recomendaciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `store`.`contactos` (
+  `id_contact` INT NOT NULL AUTO_INCREMENT,
+  `nombre_contact` VARCHAR(30) NOT NULL,
+  `apellido_contact` VARCHAR(30) NOT NULL,
+  `asunto_contact` VARCHAR(50) NOT NULL,
+  `mail_contact` VARCHAR(30) NOT NULL,
+  `mensaje_contact` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_contact`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `store`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `store`.`users` (

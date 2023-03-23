@@ -4,8 +4,6 @@ import com.asj.bootcamp.datos.DatosDummy;
 import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.repository.CategoryRepository;
 import com.asj.bootcamp.service.CategoryService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
