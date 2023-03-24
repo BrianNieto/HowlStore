@@ -1,9 +1,6 @@
 package com.asj.bootcamp.datos;
 
-import com.asj.bootcamp.entity.Category;
-import com.asj.bootcamp.entity.Item;
-import com.asj.bootcamp.entity.Persona;
-import com.asj.bootcamp.entity.User;
+import com.asj.bootcamp.entity.*;
 
 public class DatosDummy {
 
@@ -23,6 +20,10 @@ public class DatosDummy {
     public static Item getItem(){
         Category tmp = new Category(1,"Cuchillo");
         return new Item(1,"M9 Bayonet | Tiger Tooth", 30000, 5, "Factory New", "img/img1.jpg", "img/img2.jpg", "img/img3.jpg", tmp);
+    }
+
+    public static Contact getContact(){
+        return new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "zz z z a dawd ad a");
     }
 
 }

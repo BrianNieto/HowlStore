@@ -1,0 +1,119 @@
+package com.asj.bootcamp.service.impl;
+
+import com.asj.bootcamp.datos.DatosDummy;
+import com.asj.bootcamp.entity.Category;
+import com.asj.bootcamp.entity.Contact;
+import com.asj.bootcamp.repository.ContactRepository;
+import com.asj.bootcamp.service.ContactService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+class ContactServiceImplTest {
+
+    @MockBean
+    private ContactRepository repository;
+    @Autowired
+    private ContactService service;
+
+    @Test
+    @DisplayName("contact created")
+    void createContacto() {
+        Contact contact = DatosDummy.getContact();
+        service.createContacto(contact);
+
+        ArgumentCaptor<Contact> contactArgumentCaptor = ArgumentCaptor.forClass(Contact.class);
+        verify(repository).save(contactArgumentCaptor.capture());
+
+        Contact contactCaptor = contactArgumentCaptor.getValue();
+
+        assertThat(contactCaptor).isEqualTo(contact);
+
+        verify(repository).save(any());
+    }
+
+    @Test
+    @DisplayName("contact found")
+    void getContacto() {
+        Integer idContact = 1;
+
+        when(this.repository.findById(idContact)).thenReturn(Optional.of(DatosDummy.getContact()));
+        Contact contact = service.getContacto(idContact);
+
+        assertThat(contact.getIdContact()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("contact not found")
+    void getContactWithException(){
+        Integer idContact = 1;
+
+        given(repository.findById(idContact)).willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.getContacto(idContact)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    @DisplayName("contact updated")
+    void updateContacto() {
+        Integer idContact = 1;
+        Contact contactToUpdate = new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "nuevo mensaje");
+
+        given(repository.findById(idContact)).willReturn(Optional.of(DatosDummy.getContact()));
+        given(service.updateContacto(idContact,contactToUpdate)).willReturn(contactToUpdate);
+        Contact updated = service.updateContacto(idContact,contactToUpdate);
+
+        ArgumentCaptor<Contact> contactArgumentCaptor = ArgumentCaptor.forClass(Contact.class);
+        verify(repository).save(contactArgumentCaptor.capture());
+
+        assertThat(updated.getNombreContact()).isEqualTo("Naim");
+    }
+
+    @Test
+    @DisplayName("Contact not found to update")
+    void updateCategoryWithException(){
+        Integer idContact = 1;
+        Contact contactToUpdate = new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "nuevo mensaje");
+
+        given(repository.findById(idContact)).willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.updateContacto(idContact,contactToUpdate)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    @DisplayName("Contact deleted successfully")
+    void deleteContact() {
+        Integer idContact = 1;
+
+        given(repository.findById(idContact)).willReturn(Optional.of(DatosDummy.getContact()));
+        willDoNothing().given(repository).deleteById(idContact);
+        service.deleteContacto(idContact);
+
+        verify(repository,times(1)).deleteById(idContact);
+
+    }
+
+    @Test
+    @DisplayName("Category to delete not found")
+    void deleteContactWithException(){
+        Integer idContact = 1;
+
+        given(repository.findById(idContact)).willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.deleteContacto(idContact)).isInstanceOf(RuntimeException.class);
+    }
+}
