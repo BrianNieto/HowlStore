@@ -2,6 +2,8 @@ package com.asj.bootcamp.datos;
 
 import com.asj.bootcamp.entity.*;
 
+import java.time.LocalDate;
+
 public class DatosDummy {
 
     //CATEGORIAS
@@ -24,6 +26,10 @@ public class DatosDummy {
 
     public static Contact getContact(){
         return new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "zz z z a dawd ad a");
+    }
+
+    public static Recomendacion getRecomendacion(){
+        return new Recomendacion(1,"Naim Cambe", "zz z z a dawd ad a",  LocalDate.of(2021,04,23), "img/imgRecomendado.jpg");
     }
 
 }

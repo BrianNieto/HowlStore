@@ -1,7 +1,6 @@
 package com.asj.bootcamp.service.impl;
 
 import com.asj.bootcamp.datos.DatosDummy;
-import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.entity.Contact;
 import com.asj.bootcamp.repository.ContactRepository;
 import com.asj.bootcamp.service.ContactService;
@@ -17,7 +16,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
@@ -31,7 +29,7 @@ class ContactServiceImplTest {
     private ContactService service;
 
     @Test
-    @DisplayName("contact created")
+    @DisplayName("Contact created")
     void createContacto() {
         Contact contact = DatosDummy.getContact();
         service.createContacto(contact);
@@ -47,7 +45,7 @@ class ContactServiceImplTest {
     }
 
     @Test
-    @DisplayName("contact found")
+    @DisplayName("Contact found")
     void getContacto() {
         Integer idContact = 1;
 
@@ -58,7 +56,7 @@ class ContactServiceImplTest {
     }
 
     @Test
-    @DisplayName("contact not found")
+    @DisplayName("Contact not found")
     void getContactWithException(){
         Integer idContact = 1;
 
@@ -68,7 +66,7 @@ class ContactServiceImplTest {
     }
 
     @Test
-    @DisplayName("contact updated")
+    @DisplayName("Contact updated")
     void updateContacto() {
         Integer idContact = 1;
         Contact contactToUpdate = new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "nuevo mensaje");
@@ -80,7 +78,7 @@ class ContactServiceImplTest {
         ArgumentCaptor<Contact> contactArgumentCaptor = ArgumentCaptor.forClass(Contact.class);
         verify(repository).save(contactArgumentCaptor.capture());
 
-        assertThat(updated.getNombreContact()).isEqualTo("Naim");
+        assertThat(updated.getMensajeContact()).isEqualTo("nuevo mensaje");
     }
 
     @Test
@@ -108,7 +106,7 @@ class ContactServiceImplTest {
     }
 
     @Test
-    @DisplayName("Category to delete not found")
+    @DisplayName("Contact to delete not found")
     void deleteContactWithException(){
         Integer idContact = 1;
 
@@ -116,4 +114,5 @@ class ContactServiceImplTest {
 
         assertThatThrownBy(() -> service.deleteContacto(idContact)).isInstanceOf(RuntimeException.class);
     }
+
 }
