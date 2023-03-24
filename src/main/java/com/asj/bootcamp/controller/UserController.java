@@ -44,7 +44,7 @@ public class UserController {
                         User user =  service.getUser(id);
                         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userMapper.userEntityToUserCompletoDTO(user));
                 }
-                catch (NotFoundException ex){
+                catch (Exception ex){
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
                 }
         }

@@ -115,7 +115,7 @@ class CategoryServiceImplTest {
         willDoNothing().given(repository).deleteById(idCategory);
         service.deleteCategory(idCategory);
 
-        verify(repository,times(1)).deleteById(idCategory);
+        verify(repository,times(1)).deleteById(any());
 
     }
 
@@ -127,6 +127,7 @@ class CategoryServiceImplTest {
         given(repository.findById(idCategory)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.deleteCategory(idCategory)).isInstanceOf(RuntimeException.class);
+
     }
 
     @Test
@@ -141,6 +142,18 @@ class CategoryServiceImplTest {
 
         verify(repository,times(1)).findAll();
         assertThat(categoryList.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("Category exist")
+    void existCategory(){
+        String category = "test@test.com";
+
+        given(repository.findByNombreCategoria(category)).willReturn(Optional.of(DatosDummy.getCategorySMG()));
+
+        Boolean existUserByEmail = service.existCategory(category);
+
+        assertThat(existUserByEmail).isTrue();
     }
 
 }

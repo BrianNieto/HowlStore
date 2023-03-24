@@ -5,7 +5,7 @@ import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.exception.NotFoundException;
 
 public interface UserService {
-    User getUser(Integer id) throws NotFoundException;
+    User getUser(Integer id);
 
     User createUser(User user);
 
