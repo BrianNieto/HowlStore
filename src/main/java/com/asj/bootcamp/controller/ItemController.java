@@ -19,33 +19,38 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
 
-    private final ItemService service;
+    private final ItemService itemService;
     private final ItemMapper mapper;
     private final CategoryService categoryService;
 
-    public ItemController(ItemService service, ItemMapper mapper, CategoryService categoryService) {
-        this.service = service;
+    public ItemController(ItemService itemService, ItemMapper mapper, CategoryService categoryService) {
+        this.itemService = itemService;
         this.mapper = mapper;
         this.categoryService = categoryService;
     }
 
     @PostMapping
-    public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) throws NotFoundException {
-        Item item = mapper.itemDTOToItemEntity(itemDTO);
-        item.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
+    public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO){
+        try {
+            Item item = mapper.itemDTOToItemEntity(itemDTO);
+            item.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
 
-        ItemCompletoDTO tmp = mapper.itemEntityToItemDTO(service.createItem(item));
+            ItemCompletoDTO tmp = mapper.itemEntityToItemDTO(itemService.createItem(item));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+            return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Item ya existente o categoria no encontrada");
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getItem(@PathVariable Integer id){
         try {
-            Item item =  service.getItem(id);
+            Item item =  itemService.getItem(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.itemEntityToItemDTO(item));
         }
-        catch (NotFoundException ex){
+        catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item no encontrado");
         }
     }
@@ -56,7 +61,7 @@ public class ItemController {
             Item tmp = mapper.itemDTOToItemEntity(itemDTO);
 
             tmp.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
-            ItemCompletoDTO updated = mapper.itemEntityToItemDTO(service.updateItem(id, tmp));
+            ItemCompletoDTO updated = mapper.itemEntityToItemDTO(itemService.updateItem(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
         catch (Exception ex){
@@ -67,7 +72,7 @@ public class ItemController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable Integer id){
         try {
-            service.deleteItem(id);
+            itemService.deleteItem(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         }
         catch (RuntimeException ex){
@@ -77,7 +82,7 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<?> getAllItems(){
-        List<Item> items = service.getAll();
+        List<Item> items = itemService.getAllItems();
         List<ItemCompletoDTO> itemCompletoDTOS = new ArrayList<>();
         for (Item item : items){
             itemCompletoDTOS.add(mapper.itemEntityToItemDTO(item));
@@ -85,5 +90,7 @@ public class ItemController {
 
         return ResponseEntity.status(HttpStatus.OK).body(itemCompletoDTOS);
     }
+
+
 
 }

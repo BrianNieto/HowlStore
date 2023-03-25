@@ -24,6 +24,11 @@ public class DatosDummy {
         return new Item(1,"M9 Bayonet | Tiger Tooth", 30000, 5, "Factory New", "img/img1.jpg", "img/img2.jpg", "img/img3.jpg", tmp);
     }
 
+    public static Item getItem2(){
+        Category tmp = new Category(2,"Pistolas");
+        return new Item(2,"Glock-18 | Gamma Doppler", 15000, 3, "Factory New", "img/img4.jpg", "img/img5.jpg", "img/img6.jpg", tmp);
+    }
+
     public static Contact getContact(){
         return new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "zz z z a dawd ad a");
     }

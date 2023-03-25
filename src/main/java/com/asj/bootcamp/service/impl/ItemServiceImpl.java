@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
         if (itemExist(item.getNombreItem(), item.getEstadoItem())) {
             throw new RuntimeException(String.format("Item con ese nombre y estado ya registrado"));
         }
-        if (!tmp.isPresent()) {
+        else if (!tmp.isPresent()) {
             throw new RuntimeException(String.format("Categoria con ID: " + item.getCategory().getIdCategoria() + " no registrado"));
         }
 
@@ -50,6 +50,7 @@ public class ItemServiceImpl implements ItemService {
     public Item updateItem(Integer id, Item tmp) {
         Item itempUpdated;
         Optional<Item> optionalItem = itemRepository.findById(id);
+        Optional<Category> optionalCategory = categoryRepository.findById(tmp.getCategory().getIdCategoria());
         if (optionalItem.isPresent()){
             itempUpdated = optionalItem.get();
         }
@@ -82,7 +83,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getAll(){
+    public List<Item> getAllItems(){
         return itemRepository.findAll();
     }
+
+
+
 }

@@ -9,7 +9,7 @@ public interface ItemService {
 
     Item createItem(Item item);
 
-    Item getItem(Integer id) throws NotFoundException;
+    Item getItem(Integer id);
 
     Item updateItem(Integer id, Item tmp);
 
@@ -17,6 +17,6 @@ public interface ItemService {
 
     boolean itemExist(String nombreItem, String estadoItem);
 
-    List<Item> getAll();
+    List<Item> getAllItems();
 
 }
