@@ -3,8 +3,6 @@ package com.asj.bootcamp.service.impl;
 import com.asj.bootcamp.datos.DatosDummy;
 import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.entity.Item;
-import com.asj.bootcamp.entity.Persona;
-import com.asj.bootcamp.entity.User;
 import com.asj.bootcamp.repository.CategoryRepository;
 import com.asj.bootcamp.repository.ItemRepository;
 import com.asj.bootcamp.service.ItemService;
@@ -111,8 +109,8 @@ class ItemServiceImplTest {
         given(service.updateItem(idItem,itemToUpdate)).willReturn(itemToUpdate);
         Item itemUpdated = service.updateItem(idItem, itemToUpdate);
 
-        ArgumentCaptor<Item> categoryArgumentCaptor = ArgumentCaptor.forClass(Item.class);
-        verify(itemRepository).save(categoryArgumentCaptor.capture());
+        ArgumentCaptor<Item> itemArgumentCaptor = ArgumentCaptor.forClass(Item.class);
+        verify(itemRepository).save(itemArgumentCaptor.capture());
 
         assertThat(itemUpdated.getPrecioItem()).isEqualTo(itemToUpdate.getPrecioItem());
         assertThat(itemUpdated.getStockItem()).isEqualTo(itemToUpdate.getStockItem());
@@ -161,7 +159,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    @DisplayName("Item with exception")
+    @DisplayName("Delete item with exception")
     void deleteItemWithException() {
         Integer idItem = 1;
 
@@ -172,6 +170,7 @@ class ItemServiceImplTest {
     }
 
     @Test
+    @DisplayName("Item exist with nombreItem and estadoItem")
     void itemExist() {
         String nombreItem = "M9 Bayonet | Tiger Tooth";
         String estadoItem = "Factory New";
@@ -184,6 +183,7 @@ class ItemServiceImplTest {
     }
 
     @Test
+    @DisplayName("Get all items")
     void getAllItems() {
         List<Item> items = new ArrayList<>();
         items.add(DatosDummy.getItem());

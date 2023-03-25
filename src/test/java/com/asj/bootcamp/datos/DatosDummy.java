@@ -37,4 +37,8 @@ public class DatosDummy {
         return new Recomendacion(1,"Naim Cambe", "zz z z a dawd ad a",  LocalDate.of(2021,04,23), "img/imgRecomendado.jpg");
     }
 
+    public static Compra getCompra(){
+        return new Compra(1,"Realizado", LocalDate.of(2022,03,12), "REALIZADO", getItem(),getUser());
+    }
+
 }
