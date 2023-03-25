@@ -50,7 +50,6 @@ public class ItemServiceImpl implements ItemService {
     public Item updateItem(Integer id, Item tmp) {
         Item itempUpdated;
         Optional<Item> optionalItem = itemRepository.findById(id);
-        Optional<Category> optionalCategory = categoryRepository.findById(tmp.getCategory().getIdCategoria());
         if (optionalItem.isPresent()){
             itempUpdated = optionalItem.get();
         }

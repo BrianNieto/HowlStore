@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -114,6 +116,21 @@ class RecomendacionServiceImplTest {
         given(repository.findById(idRecomendacion)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.deleteRecomendacion(idRecomendacion)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    @DisplayName("Get all recomendaciones")
+    void getAllRecomendaciones(){
+        List<Recomendacion> recomendaciones= new ArrayList<>();
+        recomendaciones.add(DatosDummy.getRecomendacion());
+        recomendaciones.add(DatosDummy.getRecomendacion2());
+
+        given(repository.findAll()).willReturn(recomendaciones);
+        List<Recomendacion> recomendacionesList = service.getAllRecomendaciones();
+
+        verify(repository,times(1)).findAll();
+        assertThat(recomendacionesList.size()).isEqualTo(2);
+
     }
 
 }

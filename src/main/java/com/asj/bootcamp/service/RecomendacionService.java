@@ -2,6 +2,8 @@ package com.asj.bootcamp.service;
 
 import com.asj.bootcamp.entity.Recomendacion;
 
+import java.util.List;
+
 public interface RecomendacionService {
 
     void createRecomendacion(Recomendacion recomendacion);
@@ -11,5 +13,7 @@ public interface RecomendacionService {
     Recomendacion updateRecomendacion(Integer id, Recomendacion tmp);
 
     void deleteRecomendacion(Integer id);
+
+    List<Recomendacion> getAllRecomendaciones();
 
 }

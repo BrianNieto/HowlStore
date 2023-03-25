@@ -5,6 +5,7 @@ import com.asj.bootcamp.repository.RecomendacionRepository;
 import com.asj.bootcamp.service.RecomendacionService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,6 +58,11 @@ public class RecomendacionServiceImpl implements RecomendacionService {
         else {
             throw new RuntimeException("Recomendacion con id " + id + " no existe");
         }
+    }
+
+    @Override
+    public List<Recomendacion> getAllRecomendaciones() {
+        return repository.findAll();
     }
 
 }
