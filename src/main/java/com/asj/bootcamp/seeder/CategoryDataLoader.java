@@ -4,8 +4,11 @@ import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("!test")
 @Component
 public class CategoryDataLoader implements CommandLineRunner {
 
