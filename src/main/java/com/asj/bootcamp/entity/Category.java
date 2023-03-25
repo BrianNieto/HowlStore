@@ -17,4 +17,9 @@ public class Category {
     @Column(nullable = false, unique = true)
     String nombreCategoria;
 
+    public Category(String nombreCategoria){
+        super();
+        this.nombreCategoria = nombreCategoria;
+    }
+
 }

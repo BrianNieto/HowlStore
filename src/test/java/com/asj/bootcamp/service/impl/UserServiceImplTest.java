@@ -121,9 +121,11 @@ class UserServiceImplTest {
 
         given(userRepository.findById(idUser)).willReturn(Optional.of(DatosDummy.getUser()));
         willDoNothing().given(userRepository).deleteById(idUser);
+        willDoNothing().given(personaRepository).deleteById(DatosDummy.getUser().getPersona().getIdPersona());
         service.deleteUser(idUser);
 
         verify(userRepository,times(1)).deleteById(any());
+        verify(personaRepository,times(1)).deleteById(any());
 
     }
 

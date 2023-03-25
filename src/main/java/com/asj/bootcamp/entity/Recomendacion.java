@@ -25,4 +25,12 @@ public class Recomendacion {
     @Column(nullable = false)
     String imgRecomendacion;
 
+    public Recomendacion(String nombreRecomendacion, String comentarioRecomendacion, LocalDate fechaRecomendacion, String imgRecomendacion){
+        super();
+        this.nombreRecomendacion = nombreRecomendacion;
+        this.comentarioRecomendacion = comentarioRecomendacion;
+        this.fechaRecomendacion = fechaRecomendacion;
+        this.imgRecomendacion = imgRecomendacion;
+    }
+
 }

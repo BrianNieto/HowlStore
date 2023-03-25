@@ -21,8 +21,15 @@ public class User {
     String mail;
     @Column(nullable = false)
     String password;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idPersona")
     Persona persona;
+
+    public User(String mail, String password, Persona persona){
+        super();
+        this.mail = mail;
+        this.password = password;
+        this.persona = persona;
+    }
 
 }

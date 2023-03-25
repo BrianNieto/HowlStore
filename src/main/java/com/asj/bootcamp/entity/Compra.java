@@ -36,4 +36,5 @@ public class Compra {
     public void prePersist(){
         this.fecha = LocalDate.now();
     }
+
 }

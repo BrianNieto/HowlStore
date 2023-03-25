@@ -26,7 +26,6 @@ public class Item {
     Integer stockItem;
     @Column(nullable = false)
     String estadoItem;
-
     @Column(nullable = false)
     String img1;
     @Column(nullable = false)
@@ -36,5 +35,17 @@ public class Item {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_categoria")
     Category category;
+
+    public Item(String nombreItem, Integer precioItem, Integer stockItem, String estadoItem, String img1, String img2, String img3, Category category){
+        super();
+        this.nombreItem = nombreItem;
+        this.precioItem = precioItem;
+        this.stockItem = stockItem;
+        this.estadoItem = estadoItem;
+        this.img1 = img1;
+        this.img2 = img2;
+        this.img3 = img3;
+        this.category = category;
+    }
 
 }

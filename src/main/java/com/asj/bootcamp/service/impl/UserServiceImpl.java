@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             userRepository.deleteById(id);
+            personaRepository.deleteById(optionalUser.get().getPersona().getIdPersona());
         }
         else {
             throw new RuntimeException("Usuario con id " + id + " no existe");

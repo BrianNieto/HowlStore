@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.*;
 
@@ -23,5 +22,11 @@ public class Persona {
     String firstname;
     @Column(nullable = false)
     String lastname;
+
+    public Persona(String firstname, String lastname){
+        super();
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
 
 }
