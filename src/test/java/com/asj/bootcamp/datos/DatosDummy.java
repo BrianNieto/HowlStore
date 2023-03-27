@@ -1,5 +1,7 @@
 package com.asj.bootcamp.datos;
 
+import com.asj.bootcamp.dto.RecomendacionDTO;
+import com.asj.bootcamp.dto.UserDTO;
 import com.asj.bootcamp.entity.*;
 
 import java.time.LocalDate;
@@ -42,6 +44,9 @@ public class DatosDummy {
         return new Recomendacion(1,"Naim Cambe", "zz z z a dawd ad a",  LocalDate.of(2021,04,23), "img/imgRecomendado.jpg");
     }
 
+    public static RecomendacionDTO getRecomendacionDTO(){
+        return new RecomendacionDTO(1,"Naim Cambe", "zz z z a dawd ad a",  LocalDate.of(2021,04,23), "img/imgRecomendado.jpg");
+    }
     public static Recomendacion getRecomendacion2(){
         return new Recomendacion(2,"Roberto Miwaq", "otro más?",  LocalDate.of(2023,02,14), "img/imgRecomendado2.jpg");
     }

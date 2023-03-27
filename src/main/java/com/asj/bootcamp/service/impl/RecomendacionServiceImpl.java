@@ -18,8 +18,8 @@ public class RecomendacionServiceImpl implements RecomendacionService {
     }
 
     @Override
-    public void createRecomendacion(Recomendacion recomendacion) {
-        repository.save(recomendacion);
+    public Recomendacion createRecomendacion(Recomendacion recomendacion) {
+        return repository.save(recomendacion);
     }
 
     @Override

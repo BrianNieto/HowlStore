@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RecomendacionService {
 
-    void createRecomendacion(Recomendacion recomendacion);
+    Recomendacion createRecomendacion(Recomendacion recomendacion);
 
     Recomendacion getRecomendacion(Integer id);
 
