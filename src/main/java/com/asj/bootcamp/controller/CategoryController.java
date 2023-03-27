@@ -2,7 +2,6 @@ package com.asj.bootcamp.controller;
 
 import com.asj.bootcamp.dto.CategoryDTO;
 import com.asj.bootcamp.entity.Category;
-import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.CategoryMapper;
 import com.asj.bootcamp.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -75,7 +74,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<?> getAllCategory(){
-        List<Category> categories = service.getAll();
+        List<Category> categories = service.getAllCategories();
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
         for (Category category : categories){
             categoryDTOS.add(mapper.categoryEntityToCategoryDTO(category));

@@ -139,7 +139,7 @@ class CategoryServiceImplTest {
         categories.add(DatosDummy.getCategoryRifles());
 
         given(repository.findAll()).willReturn(categories);
-        List<Category> categoryList = service.getAll();
+        List<Category> categoryList = service.getAllCategories();
 
         verify(repository,times(1)).findAll();
         assertThat(categoryList.size()).isEqualTo(2);

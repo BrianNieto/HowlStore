@@ -1,7 +1,6 @@
 package com.asj.bootcamp.service;
 
 import com.asj.bootcamp.entity.Category;
-import com.asj.bootcamp.exception.NotFoundException;
 
 import java.util.List;
 
@@ -17,5 +16,5 @@ public interface CategoryService {
 
     boolean existCategory(String nombreCategory);
 
-    List<Category> getAll();
+    List<Category> getAllCategories();
 }
