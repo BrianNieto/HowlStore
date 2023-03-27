@@ -199,4 +199,30 @@ class ItemServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Get all items by category")
+    void getAllItemsByCategory(){
+        List<Item> items = new ArrayList<>();
+        items.add(DatosDummy.getItem2());
+        items.add(DatosDummy.getItem3());
+
+        given(itemRepository.findByIdCategory(DatosDummy.getItem3().getCategory().getIdCategoria())).willReturn(items);
+        List<Item> itemList = service.getAllItemsByCategory(DatosDummy.getItem3().getCategory().getIdCategoria());
+
+        verify(itemRepository,times(1)).findByIdCategory(DatosDummy.getItem3().getCategory().getIdCategoria());
+        assertThat(itemList.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("Get all items by category but is empty")
+    void getAllItemsByCategoryEmpty(){
+        Integer idCategory = 1;
+        List<Item> items = new ArrayList<>();
+
+        given(itemRepository.findByIdCategory(idCategory)).willReturn(items);
+
+        assertThatThrownBy(() -> service.getAllItemsByCategory(idCategory)).isInstanceOf(RuntimeException.class);
+    }
+
+
 }

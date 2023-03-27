@@ -112,13 +112,13 @@ ENGINE = InnoDB;
 -- Table `store`.`compras`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `store`.`compras` (
-  `id_Compra` INT NOT NULL AUTO_INCREMENT,
+  `id_compra` INT NOT NULL AUTO_INCREMENT,
   `comentario` VARCHAR(255) NOT NULL,
   `fecha` DATE NOT NULL,
   `estado_pedido` VARCHAR(45) NOT NULL,
   `id_item` INT NOT NULL,
   `id_user` INT NOT NULL,
-  PRIMARY KEY (`id_Compra`, `id_item`, `id_user`),
+  PRIMARY KEY (`id_compra`, `id_item`, `id_user`),
   INDEX `fk_compras_items1_idx` (`id_item` ASC),
   INDEX `fk_compras_users1_idx` (`id_user` ASC),
   CONSTRAINT `fk_compras_items1`

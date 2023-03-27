@@ -145,8 +145,7 @@ class UserServiceImplTest {
     @Test
     @DisplayName("User exist by mail and password")
     void validateUser() {
-        Persona tmp = new Persona(1,"Pipo", "Pom");
-        User user = new User(1,"test@test.com", "1234", tmp);
+        User user = DatosDummy.getUser();
 
         given(userRepository.findByMailAndPassword(user.getMail(), user.getPassword())).willReturn(Optional.of(user));
         User userTmp = service.validateUser(user);
@@ -159,9 +158,7 @@ class UserServiceImplTest {
     @Test
     @DisplayName("User not exist by mail and password")
     void validateUserWithException() {
-
-        Persona tmp = new Persona(1,"Pipo", "Pom");
-        User user = new User(1,"test@test.com", "1234", tmp);
+        User user = DatosDummy.getUser();
 
         given(userRepository.findByMailAndPassword(user.getMail(),user.getPassword())).willReturn(Optional.empty());
 

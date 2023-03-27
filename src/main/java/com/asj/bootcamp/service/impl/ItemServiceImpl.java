@@ -7,6 +7,7 @@ import com.asj.bootcamp.repository.ItemRepository;
 import com.asj.bootcamp.service.ItemService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
             return optionalItem.get();
         }
         else {
-            throw new RuntimeException("Usuario con id " + id + " no existe");
+            throw new RuntimeException("Item con id " + id + " no existe");
         }
     }
 
@@ -73,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
             itemRepository.deleteById(id);
         }
         else {
-            throw new RuntimeException("Usuario con id " + id + " no existe");
+            throw new RuntimeException("Item con id " + id + " no existe");
         }
     }
     @Override
@@ -87,5 +88,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
 
+    @Override
+    public List<Item> getAllItemsByCategory(Integer idCategory){
+        List<Item> items = itemRepository.findByIdCategory(idCategory);
+        if (items.isEmpty()){
+            throw new RuntimeException("No hay items con la categoria dada");
+        }
+        return items;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.asj.bootcamp.service;
 
+import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.exception.NotFoundException;
 
@@ -18,5 +19,7 @@ public interface ItemService {
     boolean itemExist(String nombreItem, String estadoItem);
 
     List<Item> getAllItems();
+
+    List<Item> getAllItemsByCategory(Integer idCategory);
 
 }

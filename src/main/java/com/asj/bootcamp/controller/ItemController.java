@@ -1,9 +1,10 @@
 package com.asj.bootcamp.controller;
 
+import com.asj.bootcamp.dto.CategoryDTO;
 import com.asj.bootcamp.dto.ItemCompletoDTO;
 import com.asj.bootcamp.dto.ItemDTO;
 import com.asj.bootcamp.entity.Item;
-import com.asj.bootcamp.exception.NotFoundException;
+import com.asj.bootcamp.mapper.CategoryMapper;
 import com.asj.bootcamp.mapper.ItemMapper;
 import com.asj.bootcamp.service.CategoryService;
 import com.asj.bootcamp.service.ItemService;
@@ -20,22 +21,24 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
-    private final ItemMapper mapper;
+    private final ItemMapper itemMapper;
+    private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
-    public ItemController(ItemService itemService, ItemMapper mapper, CategoryService categoryService) {
+    public ItemController(ItemService itemService, ItemMapper itemMapper, CategoryService categoryService, CategoryMapper categoryMapper) {
         this.itemService = itemService;
-        this.mapper = mapper;
+        this.itemMapper = itemMapper;
+        this.categoryMapper = categoryMapper;
         this.categoryService = categoryService;
     }
 
     @PostMapping
     public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO){
         try {
-            Item item = mapper.itemDTOToItemEntity(itemDTO);
+            Item item = itemMapper.itemDTOToItemEntity(itemDTO);
             item.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
 
-            ItemCompletoDTO tmp = mapper.itemEntityToItemDTO(itemService.createItem(item));
+            ItemCompletoDTO tmp = itemMapper.itemEntityToItemDTO(itemService.createItem(item));
 
             return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
         }
@@ -48,7 +51,7 @@ public class ItemController {
     public ResponseEntity<?> getItem(@PathVariable Integer id){
         try {
             Item item =  itemService.getItem(id);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.itemEntityToItemDTO(item));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(itemMapper.itemEntityToItemDTO(item));
         }
         catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item no encontrado");
@@ -58,10 +61,10 @@ public class ItemController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO){
         try {
-            Item tmp = mapper.itemDTOToItemEntity(itemDTO);
+            Item tmp = itemMapper.itemDTOToItemEntity(itemDTO);
 
             tmp.setCategory(categoryService.getCategory(itemDTO.getIdCategory()));
-            ItemCompletoDTO updated = mapper.itemEntityToItemDTO(itemService.updateItem(id, tmp));
+            ItemCompletoDTO updated = itemMapper.itemEntityToItemDTO(itemService.updateItem(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
         catch (Exception ex){
@@ -85,12 +88,25 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
         List<ItemCompletoDTO> itemCompletoDTOS = new ArrayList<>();
         for (Item item : items){
-            itemCompletoDTOS.add(mapper.itemEntityToItemDTO(item));
+            itemCompletoDTOS.add(itemMapper.itemEntityToItemDTO(item));
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(itemCompletoDTOS);
     }
 
-
+    @GetMapping("/all/{id}")
+    public ResponseEntity<?> getAllItemsByCategory(@PathVariable Integer id){
+        try {
+            List<Item> items = itemService.getAllItemsByCategory(id);
+            List<ItemCompletoDTO> itemsDTO = new ArrayList<>();
+            for (Item item : items){
+                itemsDTO.add(itemMapper.itemEntityToItemDTO(item));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(itemsDTO);
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Items con esa categoria no encontrados");
+        }
+    }
 
 }
