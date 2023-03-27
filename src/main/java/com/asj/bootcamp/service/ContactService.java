@@ -4,11 +4,11 @@ import com.asj.bootcamp.entity.Contact;
 
 public interface ContactService {
 
-    void createContacto(Contact contact);
+    Contact createContact(Contact contact);
 
-    Contact getContacto(Integer id);
+    Contact getContact(Integer id);
 
-    Contact updateContacto(Integer id, Contact tmp);
+    Contact updateContact(Integer id, Contact tmp);
 
-    void deleteContacto(Integer id);
+    void deleteContact(Integer id);
 }

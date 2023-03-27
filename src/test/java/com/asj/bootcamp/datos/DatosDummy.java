@@ -1,6 +1,7 @@
 package com.asj.bootcamp.datos;
 
 import com.asj.bootcamp.dto.CategoryDTO;
+import com.asj.bootcamp.dto.ContactDTO;
 import com.asj.bootcamp.dto.RecomendacionDTO;
 import com.asj.bootcamp.dto.UserDTO;
 import com.asj.bootcamp.entity.*;
@@ -49,6 +50,10 @@ public class DatosDummy {
     //CONTACTOS
     public static Contact getContact(){
         return new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "zz z z a dawd ad a");
+    }
+
+    public static ContactDTO getContactDTO(){
+        return new ContactDTO(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "zz z z a dawd ad a");
     }
 
     //RECOMENDACIONES

@@ -16,12 +16,12 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void createContacto(Contact contact) {
-        repository.save(contact);
+    public Contact createContact(Contact contact) {
+        return repository.save(contact);
     }
 
     @Override
-    public Contact getContacto(Integer id) {
+    public Contact getContact(Integer id) {
         Optional<Contact> optionalContact = repository.findById(id);
         if (optionalContact.isPresent()) {
             return optionalContact.get();
@@ -32,7 +32,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact updateContacto(Integer id, Contact tmp) {
+    public Contact updateContact(Integer id, Contact tmp) {
         Contact contactUpdated;
         Optional<Contact> optionalContact = repository.findById(id);
         if (optionalContact.isPresent()){
@@ -51,7 +51,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void deleteContacto(Integer id) {
+    public void deleteContact(Integer id) {
         Optional<Contact> optionalContact = repository.findById(id);
         if (optionalContact.isPresent()) {
             repository.deleteById(id);

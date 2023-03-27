@@ -25,14 +25,14 @@ public class ContactController {
     @PostMapping
     public ResponseEntity<?> createContact(@RequestBody ContactDTO contactDTO){
         Contact contact = mapper.contactDTOToContactEntity(contactDTO);
-        service.createContacto(contact);
+        service.createContact(contact);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getContacto(@PathVariable Integer id){
         try {
-            Contact contact =  service.getContacto(id);
+            Contact contact =  service.getContact(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.contactEntityToContactDTO(contact));
         }
         catch (Exception ex){
@@ -44,7 +44,7 @@ public class ContactController {
     public ResponseEntity<?> updateContacto(@PathVariable Integer id, @RequestBody ContactDTO contactDTO){
         try {
             Contact tmp = mapper.contactDTOToContactEntity(contactDTO);
-            ContactDTO updated = mapper.contactEntityToContactDTO(service.updateContacto(id, tmp));
+            ContactDTO updated = mapper.contactEntityToContactDTO(service.updateContact(id, tmp));
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
         }
         catch (Exception ex){
@@ -55,7 +55,7 @@ public class ContactController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteContacto(@PathVariable Integer id){
         try {
-            service.deleteContacto(id);
+            service.deleteContact(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         }
         catch (Exception ex){

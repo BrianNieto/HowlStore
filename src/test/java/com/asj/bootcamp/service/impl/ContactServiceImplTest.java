@@ -34,7 +34,7 @@ class ContactServiceImplTest {
     @DisplayName("Contact created")
     void createContacto() {
         Contact contact = DatosDummy.getContact();
-        service.createContacto(contact);
+        service.createContact(contact);
 
         ArgumentCaptor<Contact> contactArgumentCaptor = ArgumentCaptor.forClass(Contact.class);
         verify(repository).save(contactArgumentCaptor.capture());
@@ -52,7 +52,7 @@ class ContactServiceImplTest {
         Integer idContact = 1;
 
         when(this.repository.findById(idContact)).thenReturn(Optional.of(DatosDummy.getContact()));
-        Contact contact = service.getContacto(idContact);
+        Contact contact = service.getContact(idContact);
 
         assertThat(contact.getIdContact()).isEqualTo(1);
     }
@@ -64,7 +64,7 @@ class ContactServiceImplTest {
 
         given(repository.findById(idContact)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.getContacto(idContact)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> service.getContact(idContact)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
@@ -74,8 +74,8 @@ class ContactServiceImplTest {
         Contact contactToUpdate = new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "nuevo mensaje");
 
         given(repository.findById(idContact)).willReturn(Optional.of(DatosDummy.getContact()));
-        given(service.updateContacto(idContact,contactToUpdate)).willReturn(contactToUpdate);
-        Contact updated = service.updateContacto(idContact,contactToUpdate);
+        given(service.updateContact(idContact,contactToUpdate)).willReturn(contactToUpdate);
+        Contact updated = service.updateContact(idContact,contactToUpdate);
 
         ArgumentCaptor<Contact> contactArgumentCaptor = ArgumentCaptor.forClass(Contact.class);
         verify(repository).save(contactArgumentCaptor.capture());
@@ -91,7 +91,7 @@ class ContactServiceImplTest {
 
         given(repository.findById(idContact)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.updateContacto(idContact,contactToUpdate)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> service.updateContact(idContact,contactToUpdate)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
@@ -101,7 +101,7 @@ class ContactServiceImplTest {
 
         given(repository.findById(idContact)).willReturn(Optional.of(DatosDummy.getContact()));
         willDoNothing().given(repository).deleteById(idContact);
-        service.deleteContacto(idContact);
+        service.deleteContact(idContact);
 
         verify(repository,times(1)).deleteById(idContact);
 
@@ -114,7 +114,7 @@ class ContactServiceImplTest {
 
         given(repository.findById(idContact)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.deleteContacto(idContact)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> service.deleteContact(idContact)).isInstanceOf(RuntimeException.class);
     }
 
 }

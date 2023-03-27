@@ -59,7 +59,6 @@ class RecomendacionControllerTest {
                 .andExpect(status().isAccepted());
 
         verify(service,times(1)).getRecomendacion(any());
-
     }
 
     @Test
@@ -73,7 +72,6 @@ class RecomendacionControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(service,times(1)).getRecomendacion(any());
-
     }
     @Test
     @DisplayName("Update recomendacion with status ACCEPTED")
@@ -151,7 +149,6 @@ class RecomendacionControllerTest {
                 get("/recomendaciones"))
                 .andExpect(status().isOk());
         verify(service,times(1)).getAllRecomendaciones();
-
     }
 
 }
