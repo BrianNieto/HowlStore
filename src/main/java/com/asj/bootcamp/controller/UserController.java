@@ -1,10 +1,8 @@
 package com.asj.bootcamp.controller;
 
-import com.asj.bootcamp.dto.UserDTO;
+import com.asj.bootcamp.dto.UserCompletoDTO;
 import com.asj.bootcamp.dto.UserLoginDTO;
-import com.asj.bootcamp.dto.UserWithoutIdDTO;
 import com.asj.bootcamp.entity.User;
-import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.UserMapper;
 import com.asj.bootcamp.service.UserService;
 import io.swagger.annotations.Api;
@@ -28,14 +26,19 @@ public class UserController {
         }
 
         @PostMapping
-        public ResponseEntity<?> createUser(@RequestBody UserWithoutIdDTO userWithoutIdDTO){
-                        User user = userMapper.userToRegisterDTOToUserCompletoDTO(userWithoutIdDTO);
+        public ResponseEntity<?> createUser(@RequestBody UserCompletoDTO userCompletoDTO){
+                try{
+                        User user = userMapper.userCompletoDTOToUserEntity(userCompletoDTO);
 
                         User updated = service.createUser(user);
-                        UserDTO tmp = userMapper.userEntityToUserDTO(updated);
-                        tmp.setIdPersona(updated.getPersona().getIdPersona());
+                        UserCompletoDTO tmp = userMapper.userEntityToUserCompletoDTO(updated);
 
                         return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
+                }
+                catch (Exception ex){
+                        return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario con mail " + userCompletoDTO.getMail() + " ya registrado");
+                }
+
         }
 
         @GetMapping("/{id}")
@@ -50,9 +53,9 @@ public class UserController {
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UserWithoutIdDTO userDTO){
+        public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UserCompletoDTO userCompletoDTO){
                 try {
-                        User userTmp = userMapper.userDTOToUserEntity(userDTO);
+                        User userTmp = userMapper.userCompletoDTOToUserEntity(userCompletoDTO);
                         User updated = service.updateUser(id, userTmp);
                         return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
                 }

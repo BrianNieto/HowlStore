@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category createCategory(Category category) {
         if (existCategory(category.getNombreCategoria())) {
-            throw new RuntimeException(String.format("Categoria con ese nombre ya registrado"));
+            throw new RuntimeException(String.format("Categoria %s nombre ya registrado", category.getNombreCategoria()));
         }
         return repository.save(category);
     }

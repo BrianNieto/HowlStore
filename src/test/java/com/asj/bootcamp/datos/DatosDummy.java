@@ -1,9 +1,6 @@
 package com.asj.bootcamp.datos;
 
-import com.asj.bootcamp.dto.CategoryDTO;
-import com.asj.bootcamp.dto.ContactDTO;
-import com.asj.bootcamp.dto.RecomendacionDTO;
-import com.asj.bootcamp.dto.UserDTO;
+import com.asj.bootcamp.dto.*;
 import com.asj.bootcamp.entity.*;
 
 import java.time.LocalDate;
@@ -21,14 +18,20 @@ public class DatosDummy {
     public static CategoryDTO getCategorySMGDTO(){
         return new CategoryDTO(1,"SMG");
     }
-    public static CategoryDTO getCategoryRiflesDTO(){
-        return new CategoryDTO(2,"Rifles");
-    }
 
     //USUARIO
     public static User getUser(){
         Persona tmp = new Persona(1,"Pipo", "Pom");
         return new User(1,"test@test.com", "1234", tmp);
+    }
+
+    public static UserCompletoDTO getUserCompletoDTO(){
+        Persona tmp = new Persona(1,"Pipo", "Pom");
+        return new UserCompletoDTO(1,"test@test.com", "1234", tmp);
+    }
+
+    public static UserLoginDTO getUserLoginDTO(){
+        return new UserLoginDTO("test@test.com","1234");
     }
 
     //ITEMS

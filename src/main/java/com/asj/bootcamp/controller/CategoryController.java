@@ -30,6 +30,7 @@ public class CategoryController {
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO){
         try{
             Category category = mapper.categoryDTOToCategoryEntity(categoryDTO);
+
             CategoryDTO tmp = mapper.categoryEntityToCategoryDTO(service.createCategory(category));
             return ResponseEntity.status(HttpStatus.CREATED).body(tmp);
         }

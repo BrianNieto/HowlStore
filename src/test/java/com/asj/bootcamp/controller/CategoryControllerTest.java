@@ -46,6 +46,8 @@ class CategoryControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(this.mapper.writeValueAsString(categoryDTO)))
                 .andExpect(status().isCreated());
+
+        verify(service,times(1)).createCategory(any());
     }
 
     @Test
