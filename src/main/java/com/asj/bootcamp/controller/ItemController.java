@@ -22,13 +22,11 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ItemMapper itemMapper;
-    private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
-    public ItemController(ItemService itemService, ItemMapper itemMapper, CategoryService categoryService, CategoryMapper categoryMapper) {
+    public ItemController(ItemService itemService, ItemMapper itemMapper, CategoryService categoryService) {
         this.itemService = itemService;
         this.itemMapper = itemMapper;
-        this.categoryMapper = categoryMapper;
         this.categoryService = categoryService;
     }
 

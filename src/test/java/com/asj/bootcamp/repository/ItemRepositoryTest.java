@@ -18,6 +18,8 @@ class ItemRepositoryTest {
 
     @Autowired
     private ItemRepository repository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @BeforeEach
     void setUp() {
@@ -40,6 +42,7 @@ class ItemRepositoryTest {
 
     @Test
     void findAllByCategory(){
+        categoryRepository.save(DatosDummy.getItem().getCategory());
         List<Item> items = this.repository.findByIdCategory(DatosDummy.getItem().getCategory().getIdCategoria());
 
         assertThat(items.size()).isEqualTo(1);

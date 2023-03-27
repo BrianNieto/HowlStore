@@ -50,6 +50,11 @@ public class DatosDummy {
         return new Item(2,"USP-S | Pink DDPAT", 3000, 10, "Factory New", "img/img7.jpg", "img/img8.jpg", "img/img9.jpg", tmp);
     }
 
+    public static ItemCompletoDTO getItemCompletoDTO(){
+        Category tmp = new Category(1,"Cuchillo");
+        return new ItemCompletoDTO(1,"M9 Bayonet | Tiger Tooth", 30000, 5, "Factory New", "img/img1.jpg", "img/img2.jpg", "img/img3.jpg", tmp);
+    }
+
     //CONTACTOS
     public static Contact getContact(){
         return new Contact(1, "Naim", "Cambe", "naim@gmail.com","Dudas", "zz z z a dawd ad a");
