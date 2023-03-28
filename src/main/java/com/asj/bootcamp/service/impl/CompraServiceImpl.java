@@ -2,11 +2,13 @@ package com.asj.bootcamp.service.impl;
 
 
 import com.asj.bootcamp.entity.Compra;
+import com.asj.bootcamp.entity.Item;
 import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.repository.CompraRepository;
 import com.asj.bootcamp.service.CompraService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,4 +64,8 @@ public class CompraServiceImpl implements CompraService {
         }
     }
 
+    @Override
+    public List<Compra> findComprasByIdUser(Integer idUser){
+        return compraRepository.findByIdUser(idUser);
+    }
 }

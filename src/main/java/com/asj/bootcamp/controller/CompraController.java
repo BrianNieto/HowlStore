@@ -1,11 +1,7 @@
 package com.asj.bootcamp.controller;
 
 import com.asj.bootcamp.dto.CompraCompletaDTO;
-import com.asj.bootcamp.dto.CompraDTO;
 import com.asj.bootcamp.entity.Compra;
-import com.asj.bootcamp.entity.Item;
-import com.asj.bootcamp.entity.User;
-import com.asj.bootcamp.exception.NotFoundException;
 import com.asj.bootcamp.mapper.CompraMapper;
 import com.asj.bootcamp.service.CompraService;
 import com.asj.bootcamp.service.ItemService;
@@ -33,16 +29,12 @@ public class CompraController {
 
 
     @PostMapping
-    public ResponseEntity<?> createCompra(@RequestBody CompraDTO compraDTO) throws NotFoundException {
-        User user = userService.getUser(compraDTO.getIdUser());
-        Item item = itemService.getItem(compraDTO.getIdItem());
+    public ResponseEntity<?> createCompra(@RequestBody CompraCompletaDTO compraCompletaDTO){
 
-        Compra compra = mapper.compraDTOToEntity(compraDTO);
-        compra.setUser(user);
-        compra.setItem(item);
+        Compra compra = mapper.compraDTOToEntity(compraCompletaDTO);
 
-        CompraCompletaDTO compraCompletaDTO = mapper.compraEntityToCompraCompletaDTO(service.createCompra(compra));
-        return ResponseEntity.status(HttpStatus.CREATED).body(compraCompletaDTO);
+        CompraCompletaDTO created = mapper.compraEntityToCompraCompletaDTO(service.createCompra(compra));
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping("/{id}")
@@ -57,7 +49,7 @@ public class CompraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCompra(@PathVariable Integer id, @RequestBody CompraDTO compraDTO){
+    public ResponseEntity<?> updateCompra(@PathVariable Integer id, @RequestBody CompraCompletaDTO compraDTO){
         try {
             Compra tmp = mapper.compraDTOToEntity(compraDTO);
             CompraCompletaDTO updated = mapper.compraEntityToCompraCompletaDTO(service.updateCompra(id, tmp));
@@ -78,4 +70,10 @@ public class CompraController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no encontrada");
         }
     }
+
+    @GetMapping("/all/{id}")
+    public ResponseEntity<?> getAllComprasByUser(@PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findComprasByIdUser(id));
+    }
+
 }
