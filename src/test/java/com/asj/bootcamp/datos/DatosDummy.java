@@ -82,4 +82,8 @@ public class DatosDummy {
         return new Compra(1,"Realizado", LocalDate.of(2022,03,12), "REALIZADO", getItem(),getUser());
     }
 
+    public static Compra getCompra2(){
+        return new Compra(2,"Realizado", LocalDate.of(2022,03,12), "REALIZADO", getItem(),getUser());
+    }
+
 }

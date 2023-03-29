@@ -68,4 +68,5 @@ public class CompraServiceImpl implements CompraService {
     public List<Compra> findComprasByIdUser(Integer idUser){
         return compraRepository.findByIdUser(idUser);
     }
+
 }

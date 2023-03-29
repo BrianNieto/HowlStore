@@ -1,6 +1,5 @@
 package com.asj.bootcamp.repository;
 
-import com.asj.bootcamp.entity.Category;
 import com.asj.bootcamp.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

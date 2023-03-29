@@ -23,6 +23,7 @@ class ItemRepositoryTest {
 
     @BeforeEach
     void setUp() {
+        categoryRepository.save(DatosDummy.getItem().getCategory());
         repository.save(DatosDummy.getItem());
     }
 
@@ -42,7 +43,6 @@ class ItemRepositoryTest {
 
     @Test
     void findAllByCategory(){
-        categoryRepository.save(DatosDummy.getItem().getCategory());
         List<Item> items = this.repository.findByIdCategory(DatosDummy.getItem().getCategory().getIdCategoria());
 
         assertThat(items.size()).isEqualTo(1);

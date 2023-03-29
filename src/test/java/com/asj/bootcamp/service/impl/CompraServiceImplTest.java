@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -124,6 +126,22 @@ class CompraServiceImplTest {
         when(repository.findById(idCompra)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.deleteCompra(idCompra)).isInstanceOf(RuntimeException.class);
+
+    }
+
+    @Test
+    @DisplayName("Get all compras by idUser")
+    void getAllByIdUser(){
+        Integer idUser = 1;
+        List<Compra> compras = new ArrayList<>();
+        compras.add(DatosDummy.getCompra());
+        compras.add(DatosDummy.getCompra2());
+
+        given(repository.findByIdUser(idUser)).willReturn(compras);
+        List<Compra> compraList = service.findComprasByIdUser(idUser);
+
+        verify(repository,times(1)).findByIdUser(idUser);
+        assertThat(compraList.size()).isEqualTo(2);
 
     }
 
